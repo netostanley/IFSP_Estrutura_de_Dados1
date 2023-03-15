@@ -2,6 +2,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <iomanip>
+
 using namespace std;
 
 	const int linhas = 15;
@@ -14,7 +15,22 @@ using namespace std;
 	double preco;
 	double faturamentoTotal = 0;
 	int lugaresOcupados = 0;
-	
+    
+	void iniciaMapa() 
+	{
+		cout << "		   ===================== 		   " << endl;
+		cout << "		       MAPA DA SALA                " << endl;
+		cout << "		   =====================		   " << endl;
+		
+		for (int i = 0; i < linhas; i++) 
+		{
+			for (int j = 0; j < colunas; j++) 
+			{	
+				cout << mapa[i][j] << ". ";
+			}
+			cout << endl;	
+		}
+	}
 	
 	void mostrarMapa() 
 	{
@@ -25,8 +41,15 @@ using namespace std;
 		for (int i = 0; i < linhas; i++) 
 		{
 			for (int j = 0; j < colunas; j++) 
-			{
-				cout << mapa[i][j] << ". ";	
+			{		
+				if(mapa[i][j] == "# ")
+				{
+					cout << mapa[i][j];
+				}
+				else
+				{
+					cout << mapa[i][j] << ". ";
+				}
 			}
 			cout << endl;	
 		}
@@ -42,28 +65,42 @@ using namespace std;
 	  if (fileira < 0 || fileira > linhas || poltrona < 0 || poltrona > colunas) {
 	    cout << "Linha ou coluna inválida." << endl;
 	  } 
-	  else if (mapa[fileira][poltrona] == "# ") {
+	  else if (mapa[fileira-1][poltrona-1] == "# ") {
 	    cout << "Lugar já está ocupado." << endl;
 	  } 
 	  else {
 	    mapa[fileira-1][poltrona-1] = "# ";
 	    lugaresDisponiveis--;
-	    lugaresOcupados = lugaresOcupados++;
+	    lugaresOcupados++;
 	    cout << endl;
 	    cout << "Lugar reservado com sucesso." << endl;
+	    
+	    if (fileira-1 >= 0 && fileira-1 <= 5){
+			faturamentoTotal = faturamentoTotal + 50;
+		}
+		else{
+			if (fileira-1 > 5 && fileira-1 <= 10){
+				faturamentoTotal = faturamentoTotal + 30;
+			}
+			else{
+				if(fileira-1 > 10 && fileira-1 <= 15){
+					faturamentoTotal = faturamentoTotal + 15;
+				}
+			}
+		}
 	  }
 	}
 	
 	void faturamento()
 	{
-		
-		
 		cout << "Qtde de lugares ocupados:			" << lugaresOcupados << endl;
 		cout << "Valor da bilheteria:			R$" << faturamentoTotal << endl;
 	}
 
 int main()
 {
+	
+	iniciaMapa();
 	
 	do {
 		cout << endl;
@@ -72,9 +109,9 @@ int main()
 		cout << "1. Reservar poltrona" << endl;
 		cout << "2. Mapa de ocupação" << endl;
 		cout << "3. Faturamento" << endl;
+		cout << endl;
 		cin >> opcao;
 
-		
 		
 		switch(opcao)
 		{
@@ -105,6 +142,11 @@ int main()
 			break;
 		case 3:
 			system ("cls");
+			mostrarMapa();
+			
+				cout << endl;
+				cout << endl;
+				
 			faturamento();
 			
 			break;

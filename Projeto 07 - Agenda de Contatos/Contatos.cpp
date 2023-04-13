@@ -127,17 +127,36 @@ class Contato {
 		
 };
 
+	float CalcMediaIdades(Contato arrayC[], int tamanho)
+	{
+		int SomaIdades= 0;
+		
+		for (int i = 0; i < tamanho; i++)
+		{
+			SomaIdades += arrayC[i].Idade();
+		}
+		
+		float MediaIdades = static_cast<float>(SomaIdades)/tamanho;
+		
+		return MediaIdades;
+	}
+
 int main(int argc, char** argv)
 {
-	Data array[5];
-	Contato arrayC[5];
+	
+	setlocale(LC_ALL, "");
+	
+	Data array[10];
+	Contato arrayC[10];
 	
 	string Nome, Telefone, Email;
 	int DtNasc;
+	int soma=0;
+	int MaisVelho = -9999999;
 	
 	int cont = 1;
 	
-	for (int x = 0; x < 5; x++) {
+	for (int x = 0; x < 10; x++) {
 		
 		cout << cont << "º Contato" << endl;
 		cout << "Escreva o ano de nascimento: ";
@@ -163,7 +182,7 @@ int main(int argc, char** argv)
 	
 	system ("cls");
 	
-	for (int y = 0; y < 5; y++) {
+	for (int y = 0; y < 10; y++) {
 		cout << "-------------------------" << endl;
 		cout << "Nome: " << arrayC[y].getNome() << endl;
 		cout << "Email: " << arrayC[y].getEmail() << endl;
@@ -172,6 +191,52 @@ int main(int argc, char** argv)
 		cout << "-------------------------" << endl;
 	}
 	
+	
+	cout << "Média das idades dos contatos: " << CalcMediaIdades(arrayC, 3) << endl;
+	
+	cout << "Contatos com idade maior do que a média: ";
+	
+	for (int y =0; y < 10; y++) 
+	{
+		if (arrayC[y].Idade() > CalcMediaIdades(arrayC, 3)) 
+		{
+			cout << arrayC[y].getNome() << endl; 
+		}
+		
+		if (arrayC[y].Idade() >= 18) 
+		{
+			soma++;
+		}
+	}
+	
+	cout << "Contatos maiores de idade: " << soma << endl;
+	
+
+	
+	for (int y =0; y < 10; y++) 
+	{
+		
+		if( MaisVelho <= arrayC[y].Idade())
+		{
+			MaisVelho = arrayC[y].Idade();
+		}
+		
+	}
+	
+	for (int y =0; y < 10; y++) 
+	{
+		
+		if( arrayC[y].Idade() == MaisVelho)
+		{
+			cout << "-------------------------" << endl;
+			cout << "Nome: " << arrayC[y].getNome() << endl;
+			cout << "Email: " << arrayC[y].getEmail() << endl;
+			cout << "Telefone: " << arrayC[y].getTelefone() << endl;
+			cout << "-------------------------" << endl;
+			
+		}
+		
+	}
 	
 	return 0;
 }

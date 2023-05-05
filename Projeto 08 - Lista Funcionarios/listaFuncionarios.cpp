@@ -56,7 +56,8 @@ int main(int argc, char** argv)
 	int flag = -1;
 	int prontFlag = 0;
 	int counter = 0;
-	double totalSal = 0;
+	int teste = 0;
+	double soma = 0;
 	Funcionario arrayF[100];
 	
 	
@@ -119,7 +120,6 @@ int main(int argc, char** argv)
 				cout << "Salário: ";
 				cin >> salariotemp;
 				arrayF[counter].setSalario(salariotemp);
-				totalSal = totalSal + salariotemp;
 				system ("cls");
 				
 				break;
@@ -175,28 +175,35 @@ int main(int argc, char** argv)
 				break;	
 			
 			case 4:
-				
 				system ("cls");
 				cout << "==== LISTA DE FUNCIONÁRIOS ====" << endl;
 				cout << endl;
 				
+				
+				
 				for (int cont = 0; cont < 100; cont++) {
 					
-					if (arrayF[cont].getProntuario() != 0) {
+					if (arrayF[cont].getProntuario() != 0) 
+					{
 						cout << "Nome: " << arrayF[cont].getNome() << endl;
 						cout << "Prontuário: CB" << arrayF[cont].getProntuario() << endl;
-						cout << "Salário: R$" << arrayF[cont].getSalario() << endl << endl;
-						break;
+						cout << "Salário: R$" << arrayF[cont].getSalario()<< endl << endl;
+						soma = arrayF[cont].getSalario() + soma;
 					}
-					else if (cont == 99)
+					else if (arrayF[cont].getProntuario() == 0)
 					{
-						cout << "Não há funcionários para listar!" << endl;
-						cout << endl;
-						cout << endl;
+						teste = teste + 1;
 					}
 				}
+				if (teste > 99)
+				{
+					cout << "Não há funcionários para listar!" << endl;
+					cout << endl;
+					cout << endl;
+				}
+				
 				cout << endl;
-				cout << "Valor total de salários: R$" << fixed << setprecision(2) << totalSal << endl;
+				cout << "Valor total de salários: R$" << fixed << setprecision(2) << soma << endl;
 				
 				break;
 			
